@@ -14,30 +14,31 @@ class LLMPlanner:
     def _build_prompt(self, user_query: str, schemas: list[RetrievedSchema]) -> str:
         schema_text = "\n\n".join([s.schema_text for s in schemas])
 
-        return f"""You are an expert SQL assistant.
+        return f"""You are an expert MySQL query generator.
 
-You are given a user query in Hindi/English and relevant database schemas.
-Your job is to understand the intent and extract structured information.
+    Database Schemas:
+    {schema_text}
 
-Database Schemas:
-{schema_text}
+    User Query: "{user_query}"
 
-User Query: "{user_query}"
+    Important rules:
+    - Only write simple, correct MySQL SELECT queries
+    - Do NOT use correlated subqueries
+    - For comparisons use straightforward JOINs and HAVING clauses
+    - Always use table aliases
+    - Column names must exactly match the schema
+    - End query with semicolon
 
-Respond ONLY with a valid JSON object — no explanation, no markdown, no extra text.
-JSON format:
-{{
-    "intent": "short description of what user wants",
-    "entities": {{"key": "value"}},
-    "tables_needed": ["table1", "table2"],
-    "sql_query": "SELECT ... FROM ... WHERE ..."
-}}
+    Respond ONLY with a valid JSON object:
+    {{
+        "intent": "short description in english",
+        "entities": {{"key": "value"}},
+        "tables_needed": ["table1", "table2"],
+        "sql_query": "SELECT ... FROM ... WHERE ...;"
+    }}
 
-Rules for sql_query:
-- Only SELECT statements allowed
-- Use exact column and table names from schema
-- Always end with semicolon
-"""
+    No markdown, no explanation, only JSON.
+    """
 
     def plan(self, user_query: str, schemas: list[RetrievedSchema]) -> ParsedIntent:
         prompt = self._build_prompt(user_query, schemas)

@@ -1,7 +1,8 @@
 # app/infrastructure/db/mysql_client.py
 
 from sqlalchemy import create_engine, text
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session, sessionmaker
+from contextlib import contextmanager
 from app.shared.config import settings
 from app.shared.logger import get_logger
 from app.shared.exceptions import DatabaseExecutionError
@@ -25,6 +26,18 @@ class MySQLClient:
         )
         self._Session = sessionmaker(bind=self._engine)
         logger.info("MySQL engine ready")
+
+    @contextmanager
+    def get_session(self):         
+        session = self._Session()
+        try:
+            yield session
+            session.commit()
+        except Exception:
+            session.rollback()
+            raise
+        finally:
+            session.close()
 
     def execute_query(self, sql: str) -> list[dict]:
         """
