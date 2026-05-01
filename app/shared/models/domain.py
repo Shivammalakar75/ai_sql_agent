@@ -1,7 +1,7 @@
 # app/shared/models/domain.py
 
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, Any
 
 
 class QueryInput(BaseModel):
@@ -35,7 +35,7 @@ class GeneratedSQL(BaseModel):
 class PipelineResult(BaseModel):
     """Final answer jo user ko milega"""
     success: bool
-    answer: str
+    answer: Any
     sql_query: Optional[str] = None
     raw_data: Optional[list] = None
     error: Optional[str] = None

@@ -2,6 +2,7 @@
 
 from app.shared.models.domain import PipelineResult
 from app.shared.logger import get_logger
+from app.infrastructure.llm.gemini_client import gemini_client
 
 logger = get_logger(__name__)
 
@@ -27,7 +28,8 @@ class ResponseFormatter:
                 raw_data=[],
             )
 
-        answer = self._build_answer(raw_data, intent)
+        answer = self.generate_natural_answer(raw_data, intent)
+        answer = answer.replace("\n", " ")
 
         return PipelineResult(
             success=True,
@@ -35,17 +37,6 @@ class ResponseFormatter:
             sql_query=sql_query,
             raw_data=raw_data,
         )
-
-    def _build_answer(self, rows: list[dict], intent: str) -> str:
-        lines = [f"Query: {intent}", f"Total records found: {len(rows)}", ""]
-
-        for idx, row in enumerate(rows, start=1):
-            lines.append(f"Record {idx}:")
-            for key, value in row.items():
-                lines.append(f"  {key}: {value}")
-            lines.append("")
-
-        return "\n".join(lines)
 
     def format_error(self, error_message: str) -> PipelineResult:
         """Error hone pe standard error response banao"""
@@ -55,6 +46,33 @@ class ResponseFormatter:
             error=error_message,
         )
 
+    def generate_natural_answer(self, raw_data, intent, user_query=None):
+        from app.infrastructure.llm.gemini_client import gemini_client
+
+        prompt = f"""
+    You are an intelligent SQL assistant.
+
+    User question:
+    {user_query}
+
+    Intent:
+    {intent}
+
+    Database result:
+    {raw_data}
+
+    RULES:
+    - Answer MUST be in SAME language as user question
+    - If user writes Hindi → reply Hindi
+    - If English → English
+    - If Hinglish → Hinglish
+    - Keep answer short and readable
+    - Convert data into human readable sentence
+    - Do NOT return JSON or raw format
+    """
+
+        response = gemini_client.generate(prompt)
+        return response
 
 # Singleton
 response_formatter = ResponseFormatter()
