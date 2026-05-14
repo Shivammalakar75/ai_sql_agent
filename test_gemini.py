@@ -1,4 +1,4 @@
-# test_gemini.py  (root mein)
+# test_gemini.py
 
 from app.infrastructure.llm.gemini_client import gemini_client
 

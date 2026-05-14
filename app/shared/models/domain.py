@@ -6,7 +6,7 @@ from typing import Optional, Any
 
 class QueryInput(BaseModel):
     """User ka raw input"""
-    text: str                        # "user 101 ka order chahiye"
+    text: str                        # "order details of user 101"
 
 
 class RetrievedSchema(BaseModel):

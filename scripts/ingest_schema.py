@@ -10,7 +10,7 @@ if __name__ == "__main__":
     print("Schema ingestion start...")
     schema_embedder.embed_all_schemas()
     
-    # Verify karo kitne points store hue
+    # Verify how much points stored
     count = qdrant_store.count()
     print(f"Qdrant mein total points: {count}")
     print("Done!")

@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     qdrant_host: str = "localhost"
     qdrant_port: int = 6333
 
-    # Groq  ← gemini ki jagah
+    # Groq
     groq_api_key: str
 
     # App

@@ -32,10 +32,9 @@ class LLMClient:
         except Exception as e:
             logger.error(f"Groq call failed: {e}")
             raise IntentParsingError(
-                message="Groq se response nahi aaya",
+                message="response not recieved from Groq",
                 details={"error": str(e)},
             )
 
 
-# Naam same rakha taaki baaki koi file na badle
 gemini_client = LLMClient()

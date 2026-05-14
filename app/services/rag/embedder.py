@@ -18,8 +18,8 @@ class SchemaEmbedder:
 
     def _build_schema_text(self, table_name: str) -> str:
         """
-        MySQL se table ka schema fetch karo aur
-        readable text mein convert karo.
+        fetch table schema from MySQL and
+        convert into readable text.
 
         Example output:
         Table: orders
@@ -39,7 +39,7 @@ class SchemaEmbedder:
 
     def embed_all_schemas(self):
         """
-        Sabhi tables ka schema embed karo aur Qdrant mein store karo.
+        schema embed of all tables and Store in Qdrant .
         """
         points = []
 

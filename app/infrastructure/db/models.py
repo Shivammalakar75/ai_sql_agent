@@ -1,7 +1,8 @@
 # app/infrastructure/db/models.py
 
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, Boolean, DateTime
 from sqlalchemy.orm import relationship, DeclarativeBase
+from datetime import datetime
 
 
 class Base(DeclarativeBase):
@@ -38,3 +39,14 @@ class Order(Base):
 
     user = relationship("User", back_populates="orders")
     product = relationship("Product", back_populates="orders")
+
+
+class QueryHistory(Base):                         
+    __tablename__ = "query_history"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_query = Column(Text, nullable=False)
+    sql_query = Column(Text, nullable=True)
+    success = Column(Boolean, nullable=False)
+    error = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)

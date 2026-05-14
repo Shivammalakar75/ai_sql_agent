@@ -1,4 +1,4 @@
-# test_retriever.py  (root mein)
+# test_retriever.py 
 
 from app.services.rag.retriever import schema_retriever
 

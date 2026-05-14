@@ -1,4 +1,4 @@
-# test_qdrant.py  (root mein)
+# test_qdrant.py
 
 from app.infrastructure.vector_store.qdrant_client import qdrant_store
 

@@ -31,8 +31,8 @@ class QdrantVectorStore:
 
     def _ensure_collection(self):
         """
-        Collection exist nahi karti toh create karo.
-        Already exist karti hai toh kuch mat karo.
+        if Collection not exist then create.
+        Already if exist ? then do nothing.
         """
         existing = [c.name for c in self._client.get_collections().collections]
 
@@ -50,7 +50,7 @@ class QdrantVectorStore:
 
     def upsert(self, points: list[PointStruct]):
         """
-        Schema embeddings Qdrant mein store karo.
+        Schema embeddings store in Qdrant.
         """
         self._client.upsert(
             collection_name=self._collection,
@@ -60,7 +60,7 @@ class QdrantVectorStore:
 
     def search(self, query_vector: list[float], top_k: int = TOP_K_SCHEMAS) -> list[dict]:
         """
-        Query vector se similar schemas dhundho.
+        search similar schemas from Query vector.
         """
         try:
             results = self._client.query_points(
@@ -81,12 +81,12 @@ class QdrantVectorStore:
         except Exception as e:
             logger.error(f"Qdrant search failed: {e}")
             raise SchemaRetrievalError(
-                message="Schema retrieve nahi hua",
+                message="Schema not retrieved",
                 details={"error": str(e)},
             )
 
     def count(self) -> int:
-        """Kitne points hain collection mein"""
+        """how much points have in collection"""
         result = self._client.count(collection_name=self._collection)
         return result.count
 

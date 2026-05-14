@@ -9,30 +9,30 @@ class NLToSQLBaseException(Exception):
 
 
 class SchemaRetrievalError(NLToSQLBaseException):
-    """Qdrant se schema nahi mila"""
+    """schema not found from Qdrant"""
     pass
 
 
 class IntentParsingError(NLToSQLBaseException):
-    """LLM intent extract nahi kar paya"""
+    """LLM could not extract intent"""
     pass
 
 
 class SQLGenerationError(NLToSQLBaseException):
-    """SQL build nahi hui"""
+    """SQL build not done"""
     pass
 
 
 class SQLValidationError(NLToSQLBaseException):
-    """SQL unsafe hai ya invalid hai"""
+    """SQL is unsafe or invalid"""
     pass
 
 
 class DatabaseExecutionError(NLToSQLBaseException):
-    """MySQL query fail hui"""
+    """MySQL query failed"""
     pass
 
 
 class EntityResolutionError(NLToSQLBaseException):
-    """Entity resolve nahi hui (jaise user 101 exist nahi karta)"""
+    """Entity not resolved (e.g. User 101 does not exist)"""
     pass

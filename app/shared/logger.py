@@ -9,7 +9,7 @@ def get_logger(name: str) -> logging.Logger:
     logger = logging.getLogger(name)
 
     if logger.handlers:
-        return logger  # already configured hai
+        return logger  # already configured 
 
     level = getattr(logging, settings.log_level.upper(), logging.INFO)
     logger.setLevel(level)

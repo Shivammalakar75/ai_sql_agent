@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-# ─── User ───────────────────────────────────────
+#  User schemas
 class UserCreate(BaseModel):
     id: int
     name: str
@@ -22,7 +22,7 @@ class UserResponse(BaseModel):
     model_config = {"from_attributes": True}
 
 
-# ─── Product ────────────────────────────────────
+#  Product schemas
 class ProductCreate(BaseModel):
     id: int
     name: str
@@ -40,7 +40,7 @@ class ProductResponse(BaseModel):
     model_config = {"from_attributes": True}
 
 
-# ─── Order ──────────────────────────────────────
+#  Order schemas
 class OrderCreate(BaseModel):
     id: int
     user_id: int

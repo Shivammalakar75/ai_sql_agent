@@ -17,10 +17,10 @@ class SchemaRetriever:
 
     def retrieve(self, query: str, top_k: int = TOP_K_SCHEMAS) -> list[RetrievedSchema]:
         """
-        User ki query se similar schemas dhundho Qdrant mein.
+        Find similar matches to the user's query in Qdrent.
 
         Example:
-            query = "user 101 ka order chahiye"
+            query = "orders details of user 101"
             returns = [orders schema, users schema]
         """
         logger.info(f"Retrieving schemas for: '{query}'")

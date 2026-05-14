@@ -16,7 +16,7 @@ class ResponseFormatter:
         intent: str,
     ) -> PipelineResult:
         """
-        MySQL ka raw result readable answer mein convert karo.
+        raw result of MySQL convert into readable answer.
         """
         logger.info(f"Formatting {len(raw_data)} rows")
 
@@ -39,10 +39,10 @@ class ResponseFormatter:
         )
 
     def format_error(self, error_message: str) -> PipelineResult:
-        """Error hone pe standard error response banao"""
+        """standard error response"""
         return PipelineResult(
             success=False,
-            answer=f"Kuch problem aayi: {error_message}",
+            answer=f"Problem occure : {error_message}",
             error=error_message,
         )
 
@@ -63,9 +63,9 @@ class ResponseFormatter:
 
     RULES:
     - Answer MUST be in SAME language as user question
-    - If user writes Hindi → reply Hindi
-    - If English → English
-    - If Hinglish → Hinglish
+    - If user writes Hindi -> reply Hindi
+    - If English -> English
+    - If Hinglish -> Hinglish
     - Keep answer short and readable
     - Convert data into human readable sentence
     - Do NOT return JSON or raw format

@@ -69,7 +69,7 @@ class LLMPlanner:
         except (json.JSONDecodeError, KeyError) as e:
             logger.error(f"Failed to parse Gemini response: {e}")
             raise IntentParsingError(
-                message="Gemini ka response parse nahi hua",
+                message="response not parsed",
                 details={"raw": raw_response, "error": str(e)},
             )
 

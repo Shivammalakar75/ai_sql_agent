@@ -1,4 +1,4 @@
-# test_db.py  (root mein banao, baad mein delete kar dena)
+# test_db.py 
 
 from app.infrastructure.db.mysql_client import mysql_client
 

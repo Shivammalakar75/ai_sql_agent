@@ -1,4 +1,4 @@
-# test_pipeline.py  (root mein)
+# test_pipeline.py
 
 from app.core.orchestrator import orchestrator
 from app.shared.models.domain import QueryInput

@@ -19,7 +19,7 @@ class MySQLClient:
         )
         self._engine = create_engine(
             url,
-            pool_pre_ping=True,   # connection alive hai check karo
+            pool_pre_ping=True,  
             pool_size=5,
             max_overflow=10,
             echo=(settings.app_env == "development"),
@@ -41,8 +41,8 @@ class MySQLClient:
 
     def execute_query(self, sql: str) -> list[dict]:
         """
-        SELECT query chalao aur rows return karo.
-        SQLAlchemy 2.0 style — with statement use karo.
+        Run SELECT query and return rows.
+        SQLAlchemy 2.0 style - use with statement.
         """
         try:
             with self._engine.connect() as conn:
@@ -53,14 +53,14 @@ class MySQLClient:
         except Exception as e:
             logger.error(f"Query failed: {sql} | Error: {e}")
             raise DatabaseExecutionError(
-                message="MySQL query execute nahi hui",
+                message="MySQL query not execute",
                 details={"sql": sql, "error": str(e)}
             )
 
     def get_table_schema(self, table_name: str) -> list[dict]:
         """
-        Kisi bhi table ka schema fetch karo.
-        DESCRIBE table_name use karta hai.
+        fetch schema of any table.
+        DESCRIBE uses table_name.
         """
         try:
             with self._engine.connect() as conn:
@@ -69,12 +69,12 @@ class MySQLClient:
         except Exception as e:
             logger.error(f"Schema fetch failed for {table_name}: {e}")
             raise DatabaseExecutionError(
-                message=f"{table_name} ka schema nahi mila",
+                message=f"{table_name} schema not found",
                 details={"table": table_name, "error": str(e)}
             )
 
     def dispose(self):
-        """App band hone pe connection pool close karo"""
+        """connection pool close during App Stop"""
         self._engine.dispose()
         logger.info("MySQL connection pool closed")
 

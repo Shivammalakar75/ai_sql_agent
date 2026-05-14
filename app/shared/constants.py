@@ -5,7 +5,7 @@ SCHEMA_COLLECTION_NAME = "nl_sql_schema"
 EMBEDDING_DIM = 384
 TOP_K_SCHEMAS = 3
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-# LLM  ← yahan sirf yeh line badli
+# LLM  
 LLM_MODEL = "llama-3.3-70b-versatile"   
 LLM_MAX_TOKENS = 1024
 LLM_TEMPERATURE = 0.0

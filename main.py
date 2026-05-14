@@ -10,7 +10,7 @@ logger = get_logger(__name__)
 
 app = FastAPI(
     title="NL to SQL Agent",
-    description="Natural language se SQL query banao",
+    description="Create SQL queries using natural language",
     version="1.0.0",
 )
 

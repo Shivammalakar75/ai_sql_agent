@@ -14,7 +14,7 @@ from app.api.schemas.crud_schemas import (
 router = APIRouter(prefix="/crud", tags=["CRUD"])
 
 
-# ─── USERS ──────────────────────────────────────
+# USERS Routes
 
 @router.post("/users", response_model=UserResponse)
 def create_user(data: UserCreate):
@@ -55,7 +55,7 @@ def delete_user(user_id: int):
         return {"message": f"User {user_id} deleted successfully"}
 
 
-# ─── PRODUCTS ───────────────────────────────────
+# PRODUCTS Routes
 
 @router.post("/products", response_model=ProductResponse)
 def create_product(data: ProductCreate):
@@ -96,7 +96,7 @@ def delete_product(product_id: int):
         return {"message": f"Product {product_id} deleted successfully"}
 
 
-# ─── ORDERS ─────────────────────────────────────
+#  ORDERS Routes
 
 @router.post("/orders", response_model=OrderResponse)
 def create_order(data: OrderCreate):

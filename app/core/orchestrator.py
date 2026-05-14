@@ -16,7 +16,7 @@ class Orchestrator:
 
     def run(self, query_input: QueryInput) -> PipelineResult:
         """
-        Poora pipeline yahan chalता hai:
+        Poora pipeline yahan chalta hai:
         1. RAG → relevant schemas dhundho
         2. LLM Planner → intent + SQL banao
         3. Validate → SQL safe hai?
