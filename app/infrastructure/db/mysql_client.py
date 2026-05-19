@@ -3,9 +3,9 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session, sessionmaker
 from contextlib import contextmanager
-from app.shared.config import settings
-from app.shared.logger import get_logger
-from app.shared.exceptions import DatabaseExecutionError
+from app.core.config import settings
+from app.core.logger import get_logger
+from app.core.exceptions import DatabaseExecutionError
 
 logger = get_logger(__name__)
 

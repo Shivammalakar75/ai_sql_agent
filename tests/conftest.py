@@ -3,9 +3,10 @@
 import sys
 import pytest
 from unittest.mock import MagicMock, patch
+from app.ai.contracts import RetrievedSchema
 
 
-# ── Block Qdrant connection before any import ──────────────────
+#  Block Qdrant connection before any import 
 mock_qdrant_client = MagicMock()
 mock_qdrant_instance = MagicMock()
 mock_qdrant_instance.get_collections.return_value.collections = []
@@ -30,7 +31,6 @@ mock_st.return_value = mock_st_instance
 sys.modules["sentence_transformers"] = MagicMock(
     SentenceTransformer=mock_st
 )
-# ──────────────────────────────────────────────────────────────
 
 
 @pytest.fixture(scope="session")
@@ -69,7 +69,7 @@ def mock_groq():
 
 @pytest.fixture
 def sample_schemas():
-    from app.shared.models.domain import RetrievedSchema
+    
     return [
         RetrievedSchema(
             table_name="users",

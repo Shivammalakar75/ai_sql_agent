@@ -1,7 +1,8 @@
+# tests/unit/test_formatter.py
+
 import pytest
 from unittest.mock import patch
-from app.services.formatter.response_formatter import ResponseFormatter
-
+from app.ai.formatter.response_formatter import ResponseFormatter
 
 class TestResponseFormatter:
 
@@ -9,7 +10,7 @@ class TestResponseFormatter:
         self.formatter = ResponseFormatter()
 
 
-    @patch("app.services.formatter.response_formatter.gemini_client")
+    @patch("app.ai.formatter.response_formatter.gemini_client")
     def test_format_with_data(self, mock_llm):
         mock_llm.generate.return_value = "2 orders found for user."
 

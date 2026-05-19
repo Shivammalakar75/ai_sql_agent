@@ -1,10 +1,10 @@
-# app/services/planner/llm_planner.py
+# app/ai/planner/llm_planner.py
 
 import json
 from app.infrastructure.llm.gemini_client import gemini_client
-from app.shared.models.domain import RetrievedSchema, ParsedIntent
-from app.shared.logger import get_logger
-from app.shared.exceptions import IntentParsingError
+from app.ai.contracts import RetrievedSchema, ParsedIntent
+from app.core.logger import get_logger
+from app.core.exceptions import IntentParsingError
 
 logger = get_logger(__name__)
 

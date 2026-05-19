@@ -1,10 +1,9 @@
 # app/infrastructure/llm/gemini_client.py
 
 from groq import Groq
-from app.shared.config import settings
-from app.shared.constants import LLM_MODEL, LLM_MAX_TOKENS, LLM_TEMPERATURE
-from app.shared.logger import get_logger
-from app.shared.exceptions import IntentParsingError
+from app.core.config import settings
+from app.core.logger import get_logger
+from app.core.exceptions import IntentParsingError
 
 logger = get_logger(__name__)
 
@@ -13,17 +12,17 @@ class LLMClient:
 
     def __init__(self):
         self._client = Groq(api_key=settings.groq_api_key)
-        logger.info(f"Groq client ready | model: {LLM_MODEL}")
+        logger.info(f"Groq client ready | model: {settings.llm_model}")
 
     def generate(self, prompt: str) -> str:
         try:
             response = self._client.chat.completions.create(
-                model=LLM_MODEL,
+                model=settings.llm_model,
                 messages=[
                     {"role": "user", "content": prompt}
                 ],
-                max_tokens=LLM_MAX_TOKENS,
-                temperature=LLM_TEMPERATURE,
+                max_tokens=settings.llm_max_tokens,
+                temperature=settings.llm_temperature,
             )
             result = response.choices[0].message.content.strip()
             logger.debug(f"Groq response: {result[:100]}...")

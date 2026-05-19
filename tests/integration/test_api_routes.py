@@ -1,3 +1,6 @@
+
+# tests/integration/test_api_routes.py
+
 import pytest
 from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
@@ -18,7 +21,7 @@ class TestQueryRoute:
 
     @patch("app.api.routes.query.orchestrator")
     def test_query_success(self, mock_orch):
-        from app.shared.models.domain import PipelineResult
+        from app.ai.contracts import PipelineResult
 
         mock_orch.run.return_value = PipelineResult(
             success=True,
@@ -38,7 +41,7 @@ class TestQueryRoute:
 
     @patch("app.api.routes.query.orchestrator")
     def test_query_failure(self, mock_orch):
-        from app.shared.models.domain import PipelineResult
+        from app.ai.contracts import PipelineResult
 
         mock_orch.run.return_value = PipelineResult(
             success=False,
@@ -65,22 +68,22 @@ class TestQueryRoute:
 
 class TestCRUDRoutes:
 
-    @patch("app.api.routes.crud.mysql_client")
-    @patch("app.api.routes.crud.user_service")
+    @patch("app.modules.user.user_router.mysql_client")
+    @patch("app.modules.user.user_router.user_service")
     def test_get_all_users(self, mock_service, mock_db):
         mock_db.get_session.return_value.__enter__ = MagicMock(return_value=MagicMock())
         mock_db.get_session.return_value.__exit__  = MagicMock(return_value=False)
         mock_service.get_all.return_value = []
 
-        response = client.get("/crud/users")
+        response = client.get("/user/users")
         assert response.status_code == 200
 
-    @patch("app.api.routes.crud.mysql_client")
-    @patch("app.api.routes.crud.user_service")
+    @patch("app.modules.user.user_router.mysql_client")
+    @patch("app.modules.user.user_router.user_service")
     def test_get_user_not_found(self, mock_service, mock_db):
         mock_db.get_session.return_value.__enter__ = MagicMock(return_value=MagicMock())
         mock_db.get_session.return_value.__exit__  = MagicMock(return_value=False)
         mock_service.get_by_id.return_value = None
 
-        response = client.get("/crud/users/9999")
+        response = client.get("/user/users/9999")
         assert response.status_code == 404

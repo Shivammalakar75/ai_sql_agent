@@ -3,9 +3,9 @@
 from fastapi import APIRouter
 from app.api.schemas.request import QueryRequest
 from app.api.schemas.response import QueryResponse
-from app.core.orchestrator import orchestrator
-from app.shared.models.domain import QueryInput
-from app.shared.logger import get_logger
+from app.ai.workflows.orchestrator import orchestrator
+from app.ai.contracts import QueryInput
+from app.core.logger import get_logger
 
 logger = get_logger(__name__)
 
@@ -14,7 +14,7 @@ router = APIRouter()
 
 @router.post("/query", response_model=QueryResponse)
 async def handle_query(request: QueryRequest):
-    logger.info(f"Request aaya: '{request.query}'")
+    logger.info(f"Request recieve: '{request.query}'")
 
     result = orchestrator.run(
         QueryInput(text=request.query)

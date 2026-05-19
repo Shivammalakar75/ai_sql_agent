@@ -1,4 +1,4 @@
-# app/shared/exceptions.py
+# app/core/exceptions.py
 
 class NLToSQLBaseException(Exception):
     """Base exception for this project"""

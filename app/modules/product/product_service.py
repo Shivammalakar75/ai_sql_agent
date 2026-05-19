@@ -1,9 +1,9 @@
-# app/services/crud/product_service.py
+# app/modules/product/product_service
 
 from sqlalchemy.orm import Session
-from app.infrastructure.db.models import Product
-from app.api.schemas.crud_schemas import ProductCreate, ProductUpdate
-from app.shared.logger import get_logger
+from app.modules.product.product_model import Product
+from app.modules.product.product_schema import ProductCreate, ProductUpdate
+from app.core.logger import get_logger
 
 logger = get_logger(__name__)
 

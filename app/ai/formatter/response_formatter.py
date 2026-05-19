@@ -1,7 +1,9 @@
-# app/services/formatter/response_formatter.py
 
-from app.shared.models.domain import PipelineResult
-from app.shared.logger import get_logger
+
+# app/ai/formatter/response_formatter.py
+
+from app.ai.contracts import PipelineResult
+from app.core.logger import get_logger
 from app.infrastructure.llm.gemini_client import gemini_client
 
 logger = get_logger(__name__)
@@ -47,7 +49,6 @@ class ResponseFormatter:
         )
 
     def generate_natural_answer(self, raw_data, intent, user_query=None):
-        from app.infrastructure.llm.gemini_client import gemini_client
 
         prompt = f"""
     You are an intelligent SQL assistant.

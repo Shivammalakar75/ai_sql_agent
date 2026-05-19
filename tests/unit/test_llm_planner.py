@@ -1,7 +1,10 @@
+
+# tests/unit/test_llm_planner.py
+
 import pytest
 from unittest.mock import patch
-from app.services.planner.llm_planner import LLMPlanner
-from app.shared.exceptions import IntentParsingError
+from app.ai.planner.llm_planner import LLMPlanner
+from app.core.exceptions import IntentParsingError
 
 
 class TestLLMPlanner:
@@ -9,7 +12,7 @@ class TestLLMPlanner:
     def setup_method(self):
         self.planner = LLMPlanner()
 
-    @patch("app.services.planner.llm_planner.gemini_client")
+    @patch("app.ai.planner.llm_planner.gemini_client")
     def test_plan_valid_response(self, mock_llm, sample_schemas):
         mock_llm.generate.return_value = (
             '{"intent": "Get all users", '
@@ -24,7 +27,7 @@ class TestLLMPlanner:
         assert result.sql_query == "SELECT * FROM users;"
         assert "users" in result.tables_needed
 
-    @patch("app.services.planner.llm_planner.gemini_client")
+    @patch("app.ai.planner.llm_planner.gemini_client")
     def test_plan_with_markdown(self, mock_llm, sample_schemas):
         mock_llm.generate.return_value = (
             "```json\n"
@@ -36,14 +39,14 @@ class TestLLMPlanner:
         result = self.planner.plan("show users", sample_schemas)
         assert result.sql_query == "SELECT * FROM users;"
 
-    @patch("app.services.planner.llm_planner.gemini_client")
+    @patch("app.ai.planner.llm_planner.gemini_client")
     def test_plan_invalid_json(self, mock_llm, sample_schemas):
         mock_llm.generate.return_value = "This is not valid JSON"
 
         with pytest.raises(IntentParsingError):
             self.planner.plan("anything", sample_schemas)
 
-    @patch("app.services.planner.llm_planner.gemini_client")
+    @patch("app.ai.planner.llm_planner.gemini_client")
     def test_plan_prompt_contains_schema(self, mock_llm, sample_schemas):
         mock_llm.generate.return_value = (
             '{"intent": "x", "entities": {}, '

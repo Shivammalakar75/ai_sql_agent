@@ -1,8 +1,8 @@
-# app/shared/logger.py
+# app/core/logger.py
 
 import logging
 import sys
-from app.shared.config import settings
+from app.core.config import settings
 
 
 def get_logger(name: str) -> logging.Logger:

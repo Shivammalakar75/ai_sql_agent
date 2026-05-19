@@ -1,7 +1,9 @@
+# tests/integration/test_mysql_client.py
+
 import pytest
 from unittest.mock import patch, MagicMock
 from app.infrastructure.db.mysql_client import MySQLClient
-from app.shared.exceptions import DatabaseExecutionError
+from app.core.exceptions import DatabaseExecutionError
 
 
 class TestMySQLClient:

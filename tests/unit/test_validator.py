@@ -1,6 +1,8 @@
+# tests/unit/test_validator.py
+
 import pytest
-from app.core.orchestrator import Orchestrator
-from app.shared.exceptions import SQLValidationError
+from app.ai.workflows.orchestrator import Orchestrator
+from app.core.exceptions import SQLValidationError
 
 orchestrator = Orchestrator()
 

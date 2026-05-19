@@ -1,11 +1,11 @@
-# app/services/rag/embedder.py
+# app/ai/rag/embedder.py
 
 from sentence_transformers import SentenceTransformer
 from qdrant_client.models import PointStruct
 from app.infrastructure.vector_store.qdrant_client import qdrant_store
 from app.infrastructure.db.mysql_client import mysql_client
-from app.shared.constants import EMBEDDING_MODEL, DB_TABLES
-from app.shared.logger import get_logger
+from app.core.config import settings
+from app.core.logger import get_logger
 
 logger = get_logger(__name__)
 
@@ -13,8 +13,8 @@ logger = get_logger(__name__)
 class SchemaEmbedder:
 
     def __init__(self):
-        self._model = SentenceTransformer(EMBEDDING_MODEL)
-        logger.info(f"Embedding model loaded: {EMBEDDING_MODEL}")
+        self._model = SentenceTransformer(settings.embedding_model)
+        logger.info(f"Embedding model loaded: {settings.embedding_model}")
 
     def _build_schema_text(self, table_name: str) -> str:
         """
@@ -43,7 +43,7 @@ class SchemaEmbedder:
         """
         points = []
 
-        for idx, table_name in enumerate(DB_TABLES):
+        for idx, table_name in enumerate(settings.db_tables):
             schema_text = self._build_schema_text(table_name)
             logger.info(f"Embedding schema for: {table_name}")
 

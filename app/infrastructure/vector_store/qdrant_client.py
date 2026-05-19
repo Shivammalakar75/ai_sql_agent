@@ -6,14 +6,9 @@ from qdrant_client.models import (
     VectorParams,
     PointStruct,
 )
-from app.shared.config import settings
-from app.shared.constants import (
-    SCHEMA_COLLECTION_NAME,
-    EMBEDDING_DIM,
-    TOP_K_SCHEMAS,
-)
-from app.shared.logger import get_logger
-from app.shared.exceptions import SchemaRetrievalError
+from app.core.config import settings
+from app.core.logger import get_logger
+from app.core.exceptions import SchemaRetrievalError
 
 logger = get_logger(__name__)
 
@@ -25,7 +20,7 @@ class QdrantVectorStore:
             host=settings.qdrant_host,
             port=settings.qdrant_port,
         )
-        self._collection = SCHEMA_COLLECTION_NAME
+        self._collection = settings.schema_collection_name
         self._ensure_collection()
         logger.info("Qdrant client ready")
 
@@ -40,7 +35,7 @@ class QdrantVectorStore:
             self._client.create_collection(
                 collection_name=self._collection,
                 vectors_config=VectorParams(
-                    size=EMBEDDING_DIM,
+                    size=settings.embedding_dim,
                     distance=Distance.COSINE,
                 ),
             )
@@ -58,7 +53,7 @@ class QdrantVectorStore:
         )
         logger.info(f"{len(points)} points upserted")
 
-    def search(self, query_vector: list[float], top_k: int = TOP_K_SCHEMAS) -> list[dict]:
+    def search(self, query_vector: list[float], top_k: int = settings.top_k_schemas) -> list[dict]:
         """
         search similar schemas from Query vector.
         """

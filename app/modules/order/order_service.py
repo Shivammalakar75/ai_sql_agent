@@ -1,9 +1,9 @@
-# app/services/crud/order_service.py
+# app/modules/order/order_service.py
 
 from sqlalchemy.orm import Session
-from app.infrastructure.db.models import Order
-from app.api.schemas.crud_schemas import OrderCreate, OrderUpdate
-from app.shared.logger import get_logger
+from app.modules.order.order_model import Order
+from app.modules.order.order_schema import OrderCreate, OrderUpdate
+from app.core.logger import get_logger
 
 logger = get_logger(__name__)
 

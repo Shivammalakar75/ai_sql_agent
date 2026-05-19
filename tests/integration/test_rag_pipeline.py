@@ -1,13 +1,16 @@
+
+# tests/integration/test_rag_pipeline.py
+
 import pytest
 from unittest.mock import patch, MagicMock
 import numpy as np
 
 class TestRAGPipeline:
 
-    @patch("app.services.rag.retriever.qdrant_store")
-    @patch("app.services.rag.retriever.SentenceTransformer")
+    @patch("app.ai.rag.retriever.qdrant_store")
+    @patch("app.ai.rag.retriever.SentenceTransformer")
     def test_retrieve_returns_schemas(self, mock_st, mock_qdrant):
-        from app.services.rag.retriever import SchemaRetriever
+        from app.ai.rag.retriever import SchemaRetriever
 
         mock_model = MagicMock()
         mock_model.encode.return_value = np.array([0.1] * 384)
@@ -25,10 +28,10 @@ class TestRAGPipeline:
         assert results[0].table_name == "users"
         assert results[0].score == 0.85
 
-    @patch("app.services.rag.retriever.qdrant_store")
-    @patch("app.services.rag.retriever.SentenceTransformer")
+    @patch("app.ai.rag.retriever.qdrant_store")
+    @patch("app.ai.rag.retriever.SentenceTransformer")
     def test_retrieve_empty_result(self, mock_st, mock_qdrant):
-        from app.services.rag.retriever import SchemaRetriever
+        from app.ai.rag.retriever import SchemaRetriever
 
         mock_model = MagicMock()
         mock_model.encode.return_value = np.array([0.1] * 384)
@@ -41,10 +44,10 @@ class TestRAGPipeline:
 
         assert results == []
 
-    @patch("app.services.rag.retriever.qdrant_store")
-    @patch("app.services.rag.retriever.SentenceTransformer")
+    @patch("app.ai.rag.retriever.qdrant_store")
+    @patch("app.ai.rag.retriever.SentenceTransformer")
     def test_retrieve_score_order(self, mock_st, mock_qdrant):
-        from app.services.rag.retriever import SchemaRetriever
+        from app.ai.rag.retriever import SchemaRetriever
 
         mock_model = MagicMock()
         mock_model.encode.return_value = np.array([0.1] * 384)

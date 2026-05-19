@@ -1,10 +1,10 @@
-# app/services/rag/retriever.py
+# app/ai/rag/retriever.py
 
 from sentence_transformers import SentenceTransformer
 from app.infrastructure.vector_store.qdrant_client import qdrant_store
-from app.shared.constants import EMBEDDING_MODEL, TOP_K_SCHEMAS
-from app.shared.models.domain import RetrievedSchema
-from app.shared.logger import get_logger
+from app.core.config import settings
+from app.ai.contracts import RetrievedSchema
+from app.core.logger import get_logger
 
 logger = get_logger(__name__)
 
@@ -12,10 +12,10 @@ logger = get_logger(__name__)
 class SchemaRetriever:
 
     def __init__(self):
-        self._model = SentenceTransformer(EMBEDDING_MODEL)
+        self._model = SentenceTransformer(settings.embedding_model)
         logger.info("Schema retriever ready")
 
-    def retrieve(self, query: str, top_k: int = TOP_K_SCHEMAS) -> list[RetrievedSchema]:
+    def retrieve(self, query: str, top_k: int = settings.top_k_schemas) -> list[RetrievedSchema]:
         """
         Find similar matches to the user's query in Qdrent.
 

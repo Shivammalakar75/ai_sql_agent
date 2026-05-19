@@ -3,7 +3,7 @@
 import sys
 sys.path.append(".")
 
-from app.services.rag.embedder import schema_embedder
+from app.ai.rag.embedder import schema_embedder
 from app.infrastructure.vector_store.qdrant_client import qdrant_store
 
 if __name__ == "__main__":

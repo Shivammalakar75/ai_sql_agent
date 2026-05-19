@@ -1,9 +1,9 @@
-# app/services/crud/user_service.py
+# app/modules/user/user_service.py
 
 from sqlalchemy.orm import Session
-from app.infrastructure.db.models import User
-from app.api.schemas.crud_schemas import UserCreate, UserUpdate
-from app.shared.logger import get_logger
+from app.modules.user.user_model import User
+from app.modules.user.user_schema import UserCreate, UserUpdate
+from app.core.logger import get_logger
 
 logger = get_logger(__name__)
 
